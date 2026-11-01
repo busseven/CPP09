@@ -6,7 +6,7 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/01 14:32:58 by busseven          #+#    #+#              #
-#    Updated: 2026/11/01 14:32:59 by busseven         ###   ########.fr        #
+#    Updated: 2026/11/01 14:54:17 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CXX = c++
 OBJS = $(SRCS:.cpp=.o)
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = test
+NAME = btc
 
 all: $(NAME)
 
