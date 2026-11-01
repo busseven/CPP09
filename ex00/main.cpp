@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/01 17:59:42 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/01 18:06:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <iomanip>
 #include <stdexcept>
 
-std::map<std::string, double>	get_container()
+std::map<std::string, double>	get_database_container()
 {
 	std::ifstream csvfile("data.csv");
     if (!csvfile.is_open())
@@ -54,15 +54,15 @@ int main(int argc, char **argv)
 		(void)argv;
 		if(argc != 2)
 		{
-			std::cout << "Invalid argument count. Try ./btc input.txt" << std::endl;
+			std::cerr << "Invalid argument count. Try ./btc input.txt" << std::endl;
 			return (1);
 		}
 		std::map<std::string, double> cont;
-		cont = get_container();
+		cont = get_database_container();
 	}
 	catch(std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	return (0);
 }
