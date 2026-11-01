@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/01 18:24:19 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/01 18:32:11 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ void	process_input_file(std::string filename, std::map<std::string, double> &con
 		date = line.substr(0, pipe);
 		value_str = line.substr(pipe + 1);
 		value = std::strtod(value_str.c_str(), NULL);
+		if(value < 0)
+			std::cerr << "Error: not a positive number";
+		if(value > 100)
+			std::cerr << "Error: too large a number";
 	}
 }
 
