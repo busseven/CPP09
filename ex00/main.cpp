@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/01 18:06:03 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/01 18:24:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,34 @@ std::map<std::string, double>	get_database_container()
 	return (cont);
 }
 
+void	process_input_file(std::string filename, std::map<std::string, double> &cont)
+{
+	std::ifstream inputfile(filename);
+    if (!inputfile.is_open())
+	{
+    	throw std::runtime_error("Error: could not open input file");	
+	}
+	std::string line;
+	std::getline(inputfile, line);
+	while (std::getline(inputfile, line))
+	{
+		std::string				date;
+		double					value;
+		std::string				value_str;
+		std::string::size_type	pipe;
+
+		pipe = line.find("|");
+		if (pipe == std::string::npos)
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue;	
+		}
+		date = line.substr(0, pipe);
+		value_str = line.substr(pipe + 1);
+		value = std::strtod(value_str.c_str(), NULL);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	try
@@ -59,10 +87,12 @@ int main(int argc, char **argv)
 		}
 		std::map<std::string, double> cont;
 		cont = get_database_container();
+		process_input_file(argv[1], cont);
 	}
 	catch(std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
+		return (1);
 	}
 	return (0);
 }
