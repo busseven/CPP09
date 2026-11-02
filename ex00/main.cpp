@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/02 18:17:40 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/02 18:32:32 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,18 @@ bool 	is_valid_value(std::string str)
 	{
 		if(str[i] == '.')
 			dotcount++;
-		if(dotcount > 1)
+		else if(str[i] < '0' || str[i] > '9')
 			return (false);
-		if(str[i] < 0 || str[i] > '9')
+		if(dotcount > 1)
 			return (false);
 		i++;
 	}
+	return (true);
+}
+
+bool	is_valid_date(std::string date)
+{
+	(void)date;
 	return (true);
 }
 
@@ -93,10 +99,14 @@ void	process_input_file(std::string filename, std::map<std::string, double> &con
 			continue;	
 		}
 		date = line.substr(0, pipe);
+		if(!is_valid_date(date))
+		{
+			std::cerr << "Error: invalid date => " << line << std::endl;			
+		}
 		value_str = line.substr(pipe + 1);
 		if(!is_valid_value(value_str))
 		{
-			std::cerr << "Error: bad input => " << line << std::endl;
+			std::cerr << "Error: invalid value => " << line << std::endl;
 			continue ;
 		}
 		value = std::strtod(value_str.c_str(), NULL);
