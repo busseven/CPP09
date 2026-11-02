@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/01 18:38:31 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/02 18:17:40 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,31 @@ std::map<std::string, double>	get_database_container()
 	return (cont);
 }
 
+bool 	is_valid_value(std::string str)
+{
+	int	dotcount = 0;
+	std::string::size_type i = 0;
+
+	if(str[i] == ' ')
+		i++;
+	if(str[i] == '-')
+		i++;
+	while(i < str.length())
+	{
+		if(str[i] == '.')
+			dotcount++;
+		if(dotcount > 1)
+			return (false);
+		if(str[i] < 0 || str[i] > '9')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 void	process_input_file(std::string filename, std::map<std::string, double> &cont)
 {
+	(void)cont;
 	std::ifstream inputfile(filename);
     if (!inputfile.is_open())
 	{
@@ -71,11 +94,17 @@ void	process_input_file(std::string filename, std::map<std::string, double> &con
 		}
 		date = line.substr(0, pipe);
 		value_str = line.substr(pipe + 1);
+		if(!is_valid_value(value_str))
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue ;
+		}
 		value = std::strtod(value_str.c_str(), NULL);
+		std::cout << value << std::endl;
 		if(value < 0)
-			std::cerr << "Error: not a positive number";
-		if(value > 100)
-			std::cerr << "Error: too large a number";
+			std::cerr << "Error: not a positive number" << std::endl;
+		if(value > 1000)
+			std::cerr << "Error: too large a number" << std::endl;
 	}
 }
 
