@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/05 15:25:45 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/05 15:35:30 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,15 @@ std::map<std::string, double>	get_database_container()
 	return (cont);
 }
 
-bool 	is_valid_value(std::string str)
+bool 	is_valid_value(const std::string &str)
 {
 	int	dotcount = 0;
+	int digits = 0;
 	std::string::size_type i = 0;
 
-	if(str[i] == ' ')
+	if(i < str.length() && str[i] == ' ')
 		i++;
-	if(str[i] == '-')
+	if(i < str.length() && str[i] == '-')
 		i++;
 	while(i < str.length())
 	{
@@ -62,11 +63,16 @@ bool 	is_valid_value(std::string str)
 			dotcount++;
 		else if(str[i] < '0' || str[i] > '9')
 			return (false);
+		else
+			digits++;
 		if(dotcount > 1)
 			return (false);
 		i++;
 	}
-	return (true);
+	if (digits > 0)
+		return (true);
+	else
+		return (false);
 }
 
 bool	is_valid_date(std::string &date)
@@ -114,9 +120,8 @@ void    print_result(const std::map<std::string, double> &cont,
     std::cout << date << " => " << value << " = " << value * it->second << std::endl;
 }
 
-void	process_input_file(std::string filename, std::map<std::string, double> &cont)
+void	process_input_file(const std::string &filename, const std::map<std::string, double> &cont)
 {
-	(void)cont;
 	std::ifstream inputfile(filename);
     if (!inputfile.is_open())
 	{
@@ -168,7 +173,6 @@ int main(int argc, char **argv)
 {
 	try
 	{
-		(void)argv;
 		if(argc != 2)
 		{
 			std::cerr << "Invalid argument count. Try ./btc input.txt" << std::endl;
