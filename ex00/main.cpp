@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/01 14:56:49 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/02 18:32:32 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/05 15:21:28 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,49 @@ bool 	is_valid_value(std::string str)
 	return (true);
 }
 
-bool	is_valid_date(std::string date)
+bool	is_valid_date(std::string &date)
 {
-	(void)date;
-	return (true);
+	if(date.length() == 11 && date[10] == ' ')
+	{
+		date.erase(date.length() - 1);	
+	}
+	if(date.length() != 10)
+		return (false);
+	if(date[4] != '-' || date[7] != '-')
+		return (false);
+    for (std::string::size_type i = 0; i < date.length(); ++i)
+    {
+        if (i == 4 || i == 7)
+            continue ;
+        if (date[i] < '0' || date[i] > '9')
+            return (false);
+    }
+
+    int year  = std::atoi(date.substr(0, 4).c_str());
+    int month = std::atoi(date.substr(5, 2).c_str());
+    int day   = std::atoi(date.substr(8, 2).c_str());
+
+    if (month < 1 || month > 12 || day < 1)
+        return (false);
+
+    int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0))
+        days_in_month[1] = 29;
+    return (day <= days_in_month[month - 1]);
+}
+
+void    print_result(const std::map<std::string, double> &cont,
+                     const std::string &date, double value)
+{
+    std::map<std::string, double>::const_iterator it = cont.upper_bound(date);
+
+    if (it == cont.begin())
+    {
+        std::cerr << "Error: date too early => " << date << std::endl;
+        return ;
+    }
+    --it;
+    std::cout << date << " => " << value << " = " << value * it->second << std::endl;
 }
 
 void	process_input_file(std::string filename, std::map<std::string, double> &cont)
@@ -101,7 +140,8 @@ void	process_input_file(std::string filename, std::map<std::string, double> &con
 		date = line.substr(0, pipe);
 		if(!is_valid_date(date))
 		{
-			std::cerr << "Error: invalid date => " << line << std::endl;			
+			std::cerr << "Error: invalid date => " << line << std::endl;
+			continue ;		
 		}
 		value_str = line.substr(pipe + 1);
 		if(!is_valid_value(value_str))
@@ -110,11 +150,11 @@ void	process_input_file(std::string filename, std::map<std::string, double> &con
 			continue ;
 		}
 		value = std::strtod(value_str.c_str(), NULL);
-		std::cout << value << std::endl;
 		if(value < 0)
 			std::cerr << "Error: not a positive number" << std::endl;
 		if(value > 1000)
 			std::cerr << "Error: too large a number" << std::endl;
+		print_result(cont, date, value);
 	}
 }
 
