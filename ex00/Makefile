@@ -6,11 +6,11 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/01 14:32:58 by busseven          #+#    #+#              #
-#    Updated: 2026/11/01 15:49:40 by busseven         ###   ########.fr        #
+#    Updated: 2026/11/05 15:44:50 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.cpp
+SRCS = main.cpp BitcoinExchange.cpp
 CC = c++
 CXX = c++
 OBJS = $(SRCS:.cpp=.o)
