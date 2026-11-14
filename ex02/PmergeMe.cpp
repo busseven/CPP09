@@ -6,12 +6,13 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 15:38:42 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 15:41:14 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 #include <algorithm>
+#include <iostream>
 
 PmergeMe::PmergeMe(){}
 
@@ -85,4 +86,11 @@ void PmergeMe::sortVector()
 		pairs.push_back(p);
 		i+=2;
 	}
+	std::sort(pairs.begin(), pairs.end());
+
+	for (std::size_t k = 0; k < pairs.size(); ++k)
+   		std::cout << "(" << pairs[k].first << "," << pairs[k].second << ") ";
+	std::cout << std::endl;
+	if (hasStraggler)
+    	std::cout << "straggler: " << straggler << std::endl;
 }
