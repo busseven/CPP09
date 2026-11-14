@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:05:31 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 13:26:20 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 13:53:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
+#include <sys/time.h>
 #include "PmergeMe.hpp"
+
+static double now_us()
+{
+    struct timeval tv;
+
+    gettimeofday(&tv, NULL);
+    return (static_cast<double>(tv.tv_sec) * 1000000.0
+            + static_cast<double>(tv.tv_usec));
+}
 
 static bool parse_arg(const char *s, int &out)
 {
@@ -49,15 +60,13 @@ static void print_container(const std::string &label, const Container &c)
 
 int main(int argc, char **argv)
 {
+	PmergeMe sort;
+
     if (argc < 2)
     {
         std::cerr << "Error" << std::endl;
         return (1);
     }
-
-    std::vector<int> vec;
-    std::deque<int>  deq;
-
     for (int i = 1; i < argc; ++i)
     {
         int n;
@@ -66,10 +75,29 @@ int main(int argc, char **argv)
             std::cerr << "Error" << std::endl;
             return (1);
         }
-        vec.push_back(n);
-        deq.push_back(n);
     }
-	PmergeMe sort(vec, deq);
-    print_container("Before:", sort.get_vec());
-    return (0);
+    std::cout << "Before:";
+    for (int i = 1; i < argc; ++i)
+        std::cout << " " << argv[i];
+    std::cout << std::endl;
+
+	double vStart = now_us();
+	sort.fillVector(argc, argv);
+	sort.sortVector();
+	double vEnd = now_us();
+
+	double dStart = now_us();
+	sort.fillDeque(argc, argv);
+	sort.sortDeque();
+	double dEnd = now_us();
+
+	print_container("After:", sort.get_vec());
+
+	std::cout << std::fixed << std::setprecision(5);
+	std::cout << "Time to process a range of " << sort.get_vec().size()
+          	<< " elements with std::vector : "
+          	<< (vEnd - vStart) << " us" << std::endl;
+	std::cout << "Time to process a range of " << sort.get_deq().size()
+        	<< " elements with std::deque  : "
+        	<< (dEnd - dStart) << " us" << std::endl;
 }

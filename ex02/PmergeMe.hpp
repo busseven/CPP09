@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:03:12 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 13:15:22 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 13:58:07 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ class PmergeMe
 	public:
     	PmergeMe();
     	PmergeMe(const PmergeMe &other);
-		PmergeMe(std::vector<int> vec, std::deque<int> deq);
+		PmergeMe(std::vector<int> &vec, std::deque<int> &deq);
    		PmergeMe &operator=(const PmergeMe &other);
    		~PmergeMe();
 
     	void sortVector();
     	void sortDeque();
-		std::vector<int> get_vec() const;
-		std::deque<int>	get_deq() const;
+		void fillVector(int argc, char **argv);
+		void fillDeque(int argc, char **argv);
+		const std::vector<int> &get_vec() const;
+		const std::deque<int>	&get_deq() const;
 
 	private:
     	std::vector<int> _vec;
