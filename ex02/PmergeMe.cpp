@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 17:12:03 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 17:30:33 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,10 @@ void PmergeMe::fordJohnson(std::vector<int> &v)
 		pairs.push_back(p);
 		i+=2;
 	}
-	std::sort(pairs.begin(), pairs.end());
+	std::vector<int> winners;
+	for (std::size_t k = 0; k < pairs.size(); ++k)
+    	winners.push_back(pairs[k].first);
+	fordJohnson(winners);
 	if (!pairs.empty())
 	{
     	chain.push_back(pairs[0].second);
