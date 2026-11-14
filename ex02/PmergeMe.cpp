@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 17:30:33 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 17:42:51 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ void PmergeMe::sortDeque()
 	;
 }
 
+void PmergeMe::sortVector()
+{
+	fordJohnson(_vec);
+}
+
 static void binaryInsert(std::vector<int> &chain, std::size_t end, int value)
 {
     std::size_t lo = 0;
@@ -110,6 +115,21 @@ void PmergeMe::fordJohnson(std::vector<int> &v)
 	for (std::size_t k = 0; k < pairs.size(); ++k)
     	winners.push_back(pairs[k].first);
 	fordJohnson(winners);
+	std::vector<std::pair<int, int> > sorted;
+	std::vector<bool> used(pairs.size(), false);
+	for (std::size_t a = 0; a < winners.size(); ++a)
+	{
+		for(std::size_t j = 0; j < pairs.size(); ++j)
+		{
+			if(!used[j] && pairs[j].first == winners[a])
+			{
+				used[j] = true;
+				sorted.push_back(pairs[j]);
+				break ;
+			}
+		}	
+	}
+	pairs = sorted;
 	if (!pairs.empty())
 	{
     	chain.push_back(pairs[0].second);
