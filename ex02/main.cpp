@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:05:31 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 13:53:16 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 14:20:05 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ int main(int argc, char **argv)
 	std::cout << "Time to process a range of " << sort.get_deq().size()
         	<< " elements with std::deque  : "
         	<< (dEnd - dStart) << " us" << std::endl;
+	return (0);
 }
