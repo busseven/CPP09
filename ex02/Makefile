@@ -6,11 +6,11 @@
 #    By: busseven <busseven@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/11/14 12:46:49 by busseven          #+#    #+#              #
-#    Updated: 2026/11/14 12:48:21 by busseven         ###   ########.fr        #
+#    Updated: 2026/11/14 13:26:46 by busseven         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.cpp
+SRCS = main.cpp PmergeMe.cpp
 CC = c++
 CXX = c++
 OBJS = $(SRCS:.cpp=.o)
