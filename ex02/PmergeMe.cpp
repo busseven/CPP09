@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 17:42:51 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 18:20:16 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,27 @@ void PmergeMe::sortDeque()
 void PmergeMe::sortVector()
 {
 	fordJohnson(_vec);
+}
+
+static std::vector<std::size_t> insertionOrder(std::size_t m)
+{
+    std::vector<std::size_t> order;
+    std::size_t done = 1;       // loser 1 is already in the chain
+    std::size_t prev = 1;
+    std::size_t cur = 3;        // Jacobsthal numbers: 3, 5, 11, 21, 43...
+
+    while (done < m)
+    {
+        std::size_t top = (cur < m) ? cur : m;
+        for (std::size_t i = top; i > done; --i)
+            order.push_back(i);
+        done = top;
+
+        std::size_t next = cur + 2 * prev;
+        prev = cur;
+        cur = next;
+    }
+    return (order);
 }
 
 static void binaryInsert(std::vector<int> &chain, std::size_t end, int value)
@@ -136,12 +157,20 @@ void PmergeMe::fordJohnson(std::vector<int> &v)
     	for (std::size_t k = 0; k < pairs.size(); ++k)
         	chain.push_back(pairs[k].first);
 	}
-	for (std::size_t k = 1; k < pairs.size(); ++k)
+	std::size_t m = pairs.size() + (hasStraggler ? 1 : 0);
+	std::vector<std::size_t> order = insertionOrder(m);
+	for (std::size_t o = 0; o < order.size(); ++o)
 	{
-   		std::size_t end = std::find(chain.begin(), chain.end(), pairs[k].first) - chain.begin();
-    	binaryInsert(chain, end, pairs[k].second);
+		std::size_t k = order[o];
+		if (k <= pairs.size())
+		{
+   			std::size_t end = std::find(chain.begin(), chain.end(), pairs[k - 1].first) - chain.begin();
+    		binaryInsert(chain, end, pairs[k - 1].second);	
+		}
+		else
+		{
+    		binaryInsert(chain, chain.size(), straggler);	
+		}
 	}
-	if (hasStraggler)
-    	binaryInsert(chain, chain.size(), straggler);
 	v = chain;
 }
