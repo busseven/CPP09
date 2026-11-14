@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 15:41:14 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 17:12:03 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,41 @@ void PmergeMe::sortDeque()
 	;
 }
 
-void PmergeMe::sortVector()
+static void binaryInsert(std::vector<int> &chain, std::size_t end, int value)
 {
+    std::size_t lo = 0;
+    std::size_t hi = end;
+
+    while (lo < hi)
+    {
+        std::size_t mid = lo + (hi - lo) / 2;
+        if (chain[mid] < value)
+            lo = mid + 1;
+        else
+            hi = mid;
+    }
+    chain.insert(chain.begin() + lo, value);
+}
+
+void PmergeMe::fordJohnson(std::vector<int> &v)
+{
+	if (v.size() < 2)
+    	return ;
 	std::size_t i = 0;
 	std::vector<std::pair<int, int> > pairs;
-	bool hasStraggler = (_vec.size() % 2 != 0);
+	std::vector<int> chain;
+
+	bool hasStraggler = (v.size() % 2 != 0);
 	int straggler = 0;
 	if(hasStraggler)
-		straggler = _vec[_vec.size() - 1];
+		straggler = v[v.size() - 1];
 	
-	while(i + 1 < _vec.size())
+	while(i + 1 < v.size())
 	{
 		int temp;
 		std::pair<int, int> p;
-		p.first = _vec[i];
-		p.second = _vec[i + 1];
+		p.first = v[i];
+		p.second = v[i + 1];
 		if(p.second > p.first)
 		{
 			temp = p.first;
@@ -87,10 +107,18 @@ void PmergeMe::sortVector()
 		i+=2;
 	}
 	std::sort(pairs.begin(), pairs.end());
-
-	for (std::size_t k = 0; k < pairs.size(); ++k)
-   		std::cout << "(" << pairs[k].first << "," << pairs[k].second << ") ";
-	std::cout << std::endl;
+	if (!pairs.empty())
+	{
+    	chain.push_back(pairs[0].second);
+    	for (std::size_t k = 0; k < pairs.size(); ++k)
+        	chain.push_back(pairs[k].first);
+	}
+	for (std::size_t k = 1; k < pairs.size(); ++k)
+	{
+   		std::size_t end = std::find(chain.begin(), chain.end(), pairs[k].first) - chain.begin();
+    	binaryInsert(chain, end, pairs[k].second);
+	}
 	if (hasStraggler)
-    	std::cout << "straggler: " << straggler << std::endl;
+    	binaryInsert(chain, chain.size(), straggler);
+	v = chain;
 }

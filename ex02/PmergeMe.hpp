@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:03:12 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 14:20:02 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 17:10:31 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class PmergeMe
    		PmergeMe &operator=(const PmergeMe &other);
    		~PmergeMe();
 
-    	void sortVector();
+		fordJohnson(std::vector<int> &v);
     	void sortDeque();
 		void fillVector(int argc, char **argv);
 		void fillDeque(int argc, char **argv);
