@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:03:12 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 13:58:07 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 14:00:02 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ class PmergeMe
 	public:
     	PmergeMe();
     	PmergeMe(const PmergeMe &other);
-		PmergeMe(std::vector<int> &vec, std::deque<int> &deq);
    		PmergeMe &operator=(const PmergeMe &other);
    		~PmergeMe();
 
