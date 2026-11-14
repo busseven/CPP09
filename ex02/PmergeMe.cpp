@@ -6,11 +6,12 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 15:34:42 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 15:38:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+#include <algorithm>
 
 PmergeMe::PmergeMe(){}
 
@@ -64,8 +65,12 @@ void PmergeMe::sortVector()
 {
 	std::size_t i = 0;
 	std::vector<std::pair<int, int> > pairs;
+	bool hasStraggler = (_vec.size() % 2 != 0);
+	int straggler = 0;
+	if(hasStraggler)
+		straggler = _vec[_vec.size() - 1];
 	
-	while(i < _vec.size() - 1)
+	while(i + 1 < _vec.size())
 	{
 		int temp;
 		std::pair<int, int> p;
