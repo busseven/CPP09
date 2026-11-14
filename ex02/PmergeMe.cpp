@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:06:02 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 14:20:13 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/14 15:34:42 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,22 @@ void PmergeMe::sortDeque()
 
 void PmergeMe::sortVector()
 {
-	;
+	std::size_t i = 0;
+	std::vector<std::pair<int, int> > pairs;
+	
+	while(i < _vec.size() - 1)
+	{
+		int temp;
+		std::pair<int, int> p;
+		p.first = _vec[i];
+		p.second = _vec[i + 1];
+		if(p.second > p.first)
+		{
+			temp = p.first;
+			p.first = p.second;
+			p.second = temp;
+		}
+		pairs.push_back(p);
+		i+=2;
+	}
 }
