@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 13:03:12 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/14 17:42:23 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/15 14:28:19 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class PmergeMe
    		~PmergeMe();
 
 		void fordJohnson(std::vector<int> &v);
+		void fordJohnson(std::deque<int> &v);
     	void sortVector();
     	void sortDeque();
 		void fillVector(int argc, char **argv);

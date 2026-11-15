@@ -6,8 +6,10 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/05 16:05:26 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/05 16:22:35 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/15 14:34:53 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <string>
 
 bool compute(const std::string &expr, long &result);

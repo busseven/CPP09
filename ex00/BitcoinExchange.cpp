@@ -6,7 +6,7 @@
 /*   By: busseven <busseven@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/05 15:44:17 by busseven          #+#    #+#             */
-/*   Updated: 2026/11/05 15:47:03 by busseven         ###   ########.fr       */
+/*   Updated: 2026/11/15 14:36:46 by busseven         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void    print_result(const std::map<std::string, double> &cont,
 
 void	process_input_file(const std::string &filename, const std::map<std::string, double> &cont)
 {
-	std::ifstream inputfile(filename);
+	std::ifstream inputfile(filename.c_str());
     if (!inputfile.is_open())
 	{
     	throw std::runtime_error("Error: could not open input file");	
